@@ -7,11 +7,13 @@ import org.example.expert.domain.common.dto.AuthUser;
 import org.example.expert.domain.user.enums.UserRole;
 import org.springframework.core.MethodParameter;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+@Component
 public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
@@ -40,6 +42,10 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
         Long userId = (Long) request.getAttribute("userId");
         String email = (String) request.getAttribute("email");
         UserRole userRole = UserRole.of((String) request.getAttribute("userRole"));
+
+        if (userId == null || email == null || userRole == null) {
+            throw new AuthException("인증 정보가 누락되었습니다.");
+        }
 
         return new AuthUser(userId, email, userRole);
     }
