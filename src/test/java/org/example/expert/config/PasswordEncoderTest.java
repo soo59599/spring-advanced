@@ -1,13 +1,13 @@
 package org.example.expert.config;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 class PasswordEncoderTest {
 
     @InjectMocks
@@ -20,7 +20,7 @@ class PasswordEncoderTest {
         String encodedPassword = passwordEncoder.encode(rawPassword);
 
         // when
-        boolean matches = passwordEncoder.matches(encodedPassword, rawPassword);
+        boolean matches = passwordEncoder.matches(rawPassword, encodedPassword);
 
         // then
         assertTrue(matches);
