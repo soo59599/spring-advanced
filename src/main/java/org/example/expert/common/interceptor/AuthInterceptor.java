@@ -15,13 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthInterceptor implements HandlerInterceptor {
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, @Nullable HttpServletResponse response, @Nullable Object handler)
-		{
+	public boolean preHandle(HttpServletRequest request, @Nullable HttpServletResponse response,
+		@Nullable Object handler) {
 
-		log.info("관리자 API 호출 - 사용자ID: {}, 시각: {}, URL: {}",
-			request.getAttribute("userId"),
-			LocalDateTime.now(),
-			request.getRequestURI());
+		log.info("=== [INTERCEPTOR API 호출] ===");
+		log.info("사용자 ID : {}", request.getAttribute("userId"));
+		log.info("요청 시각 : {}", LocalDateTime.now());
+		log.info("요청 URL  : {}", request.getRequestURI());
+		log.info("=== [INTERCEPTOR API 호출 끝] ===");
 
 		return true;
 	}
