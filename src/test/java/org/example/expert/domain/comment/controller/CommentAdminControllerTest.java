@@ -34,12 +34,10 @@ public class CommentAdminControllerTest {
 
 		when(authInterceptor.preHandle(any(), any(), any())).thenReturn(true);
 
-		//when
+		//when //then
 		mockMvc.perform(delete("/admin/comments/{commentId}", commentId)
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk());
-
-		//than
 		verify(commentAdminService).deleteComment(commentId);
 	}
 }
