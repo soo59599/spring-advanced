@@ -31,6 +31,9 @@ public class UserControllerTest {
 	@MockBean
 	private AuthUserArgumentResolver authUserArgumentResolver;
 
+	@Autowired
+	private ObjectMapper objectMapper;
+
 
 	@Test
 	void User를_ID로_조회할_수_있다() throws Exception {
@@ -58,8 +61,7 @@ public class UserControllerTest {
 
 		UserChangePasswordRequest request = new UserChangePasswordRequest("oldPassword","newPassword");
 
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonRequest = mapper.writeValueAsString(request);
+		String jsonRequest = objectMapper.writeValueAsString(request);
 
 		//when //then
 		mockMvc.perform(put("/users")

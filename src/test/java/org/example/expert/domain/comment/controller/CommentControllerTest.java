@@ -26,6 +26,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @WebMvcTest(CommentController.class)
 public class CommentControllerTest {
 
@@ -37,6 +39,9 @@ public class CommentControllerTest {
 
 	@MockBean
 	private AuthUserArgumentResolver authUserArgumentResolver;
+
+	@Autowired
+	private ObjectMapper objectMapper;
 
 	@Test
 	void comment_등록() throws Exception {

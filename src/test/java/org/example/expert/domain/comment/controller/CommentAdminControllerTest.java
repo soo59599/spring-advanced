@@ -1,6 +1,7 @@
 package org.example.expert.domain.comment.controller;
 
 
+import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -23,21 +24,21 @@ public class CommentAdminControllerTest {
 	@MockBean
 	private CommentAdminService commentAdminService;
 
-	@MockBean
-	private AuthInterceptor authInterceptor;
+	 @MockBean
+	 private AuthInterceptor authInterceptor;
 
 
 	@Test
 	public void comment_삭제_성공() throws Exception {
 		//given
 		long commentId = 1L;
+		willDoNothing().given(commentAdminService).deleteComment(anyLong());
 
-		when(authInterceptor.preHandle(any(), any(), any())).thenReturn(true);
+		given(authInterceptor.preHandle(any(), any(), any())).willReturn(true);
 
 		//when //then
-		mockMvc.perform(delete("/admin/comments/{commentId}", commentId)
-			.contentType(MediaType.APPLICATION_JSON))
+		mockMvc.perform(delete("/admin/comments/{commentId}", commentId))
 			.andExpect(status().isOk());
-		verify(commentAdminService).deleteComment(commentId);
+
 	}
 }

@@ -3,6 +3,7 @@ package org.example.expert.common.interceptor;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import org.example.expert.domain.auth.exception.AuthException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -22,7 +23,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
 		if (!"ADMIN".equals(userRole)) {
 			log.error("허용된 사용자가 아닙니다.");
-			return false;
+			throw new AuthException("허용된 사용자가 아닙니다.");
 		}
 
 		log.info("=== [INTERCEPTOR API 호출] ===");

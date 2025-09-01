@@ -1,6 +1,7 @@
 package org.example.expert.domain.user.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -35,7 +36,7 @@ public class UserAdminControllerTest {
 	@Test
 	void User의_Role을_바꿀_수_있다() throws Exception{
 		//given
-		when(authInterceptor.preHandle(any(), any(), any())).thenReturn(true);
+		given(authInterceptor.preHandle(any(), any(), any())).willReturn(true);
 		long userId = 1L;
 		UserRoleChangeRequest userRoleChangeRequest = new UserRoleChangeRequest("ADMIN");
 		String requestBody = objectMapper.writeValueAsString(userRoleChangeRequest);
